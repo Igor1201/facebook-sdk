@@ -1,24 +1,15 @@
-Meteor.startup ->
-  if (Meteor.isClient)
+window.fbAsyncInit = ->
+	unless Meteor.settings.public.facebook.appId
+		console.warn('Can\'t find Facebook appId')
+		return
 
-    # console.log("fbsdk| client startup actions")
-    fbAppId = Meteor.settings.public.facebook.appId
-    unless fbAppId
-      console.warn("cant find fbAppId")
-      return
-    else
-      console.log("fbAppId", fbAppId)
-    window.fbAsyncInit = () ->
-      FB.init({
-        appId      : Meteor.settings.public.facebook.appId,
-        cookie     : true,
-        status     : true,
-        xfbml      : true,
-        version    : 'v2.1'
-      })
+	FB.init
+		appId: Meteor.settings.public.facebook.appId
+		status: true
+		xfbml: true
+		version: 'v2.3'
 
-
-
-# FB.getLoginStatus(function(response) {
-#     alert(response);
-# });
+Template.onRendered ->
+	try
+		FB.XFBML.parse()
+	catch e

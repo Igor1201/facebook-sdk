@@ -1,12 +1,11 @@
 ##facebook-sdk
 
-
 The Facebook Javascript SDK packaged for Meteor.js. Be sure to review the full [documentation](https://developers.facebook.com/docs/javascript) for a full description of the Facebook SDK and how to use it.
 
 How to Install
 ------------------
 
-meteor add dcsan:facebook-sdk
+meteor add borges:facebook-sdk
 
 How to Initialize
 ------------------
@@ -68,7 +67,10 @@ Example Configuration Object
 * [Like Button](https://developers.facebook.com/docs/plugins/like-button/)
 
 {{> facebookLike config}}
- 
+
+* [Page Plugin](https://developers.facebook.com/docs/plugins/page-plugin/)
+
+{{> facebookPage config}}
 
 * [Share Button](https://developers.facebook.com/docs/plugins/share-button/)
 
@@ -104,18 +106,17 @@ Example Configuration Object
 {{> facebookRecommendations config}}
 
 
-
 Facebook-SDK with Iron-Router
 -------------
 
 If you're not using [Iron-Router](https://github.com/EventedMind/iron-router) in your Meteor project, you probably should. One of the things you'll notice is that with Iron Router when you navigate away from a page with a Social Plugin, then return to that page your social widget will vanish to the abyss. Obviously, this is not good. To insure that your Social Plugins are always displayed (for both HTML5 embed and handlebars helpers) use the following snipit of Javascript (note that this requires jQuery, but you should have it installed already for obvious reasons).
 
 ```javascript
-Template.<template-name>.rendered = function() {
-    try {
-        FB.XFBML.parse();
-    }catch(e) {}   
-};
+Template.<template-name>.rendered = ->
+	try
+		FB.XFBML.parse()
+	catch e
+		console.error e
 ```
 
 Remember to replace <template-name> with actual name of your template, and to repeat the process for every template that contains a social widget.
@@ -129,6 +130,3 @@ License
 -----------------
 
 MIT 
-
-
-
